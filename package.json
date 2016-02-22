@@ -9,8 +9,11 @@
   "author": "Joe Longstreet",
   "license": "MIT",
   "dependencies": {
+    "async": "^1.5.2",
     "lodash": "^4.5.0",
-    "midi": "^0.9.4"
+    "midi": "^0.9.4",
+    "needle": "^1.0.0",
+    "node-ssdp": "^2.7.0"
   },
   "jshintConfig": {
     "esnext": true

@@ -1,0 +1,18 @@
+{
+  "name": "turnt",
+  "version": "0.0.1",
+  "description": "Event bus and server for the turnt booth",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Joe Longstreet",
+  "license": "MIT",
+  "dependencies": {
+    "lodash": "^4.5.0",
+    "midi": "^0.9.4"
+  },
+  "jshintConfig": {
+    "esnext": true
+  }
+}

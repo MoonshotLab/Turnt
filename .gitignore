@@ -1,3 +1,4 @@
 .DS_Store
 node_modules
 public/live-feed.jpg
+env-vars.js

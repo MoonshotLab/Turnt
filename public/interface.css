@@ -1,0 +1,42 @@
+body{
+  font-family: 'GT Walsheim';
+}
+
+.state, .countdown-screen{
+  display: none;
+  width: 100%;
+  height: 100%;
+  background-position: center center;
+  background-size: contain;
+}
+.state.ready{
+  display: block;
+}
+.state.recording{
+  background-image: url('/screens/recording.png');
+}
+.state.done{
+  background-image: url('/screens/done.png');
+}
+.state.processing{
+  background-image: url('/screens/processing.png');
+}
+.countdown-screen.one{
+  background-image: url('/screens/countdown-1.png');
+}
+.countdown-screen.two{
+  background-image: url('/screens/countdown-2.png');
+}
+.countdown-screen.three{
+  background-image: url('/screens/countdown-3.png');
+}
+.countdown-screen.prep{
+  background-image: url('/screens/prep.png');
+}
+
+
+
+.state.ready .live-feed{
+  width: 100%;
+  height: 100%;
+}

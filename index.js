@@ -35,3 +35,6 @@ io.on('connection', bus.initializeWebpageEvents);
 
 // listen to updates from the turntable, then send over via tcp socket
 turntable.on('input-update', bus.turntableUpdate);
+
+// routes
+app.get('/', function(req, res){ res.render('interface'); });

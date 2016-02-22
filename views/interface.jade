@@ -1,0 +1,34 @@
+extends layout
+
+block head
+  link(rel='stylesheet' href='interface.css')
+
+block content
+  .state.ready
+    img.live-feed(src='/live-feed.jpg')
+
+
+  .state.countdown
+    .countdown-screen.one
+      h1 1
+    .countdown-screen.two
+      h1 2
+    .countdown-screen.three
+      h1 3
+    .countdown-screen.prep
+      h1 Get Ready
+    
+    
+  .state.recording
+    h1 Recording
+
+
+  .state.done
+    h1 Done
+
+  
+  .state.processing
+    h1 Processing
+
+
+  script(src='interface.js')

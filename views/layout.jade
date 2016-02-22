@@ -1,0 +1,16 @@
+doctype html
+html
+  head
+    meta(charset='UTF-8')
+    meta(name='viewport', content='width=device-width, user-scalable=no')
+    link(rel='stylesheet' href='/reset.css')
+
+    script(src='/socket.io/socket.io.js')
+    script(src='/vendor/jquery-2.1.4.min.js')
+    script.
+      var socket = io();
+
+    block head
+
+    body
+      block content

@@ -17,7 +17,7 @@ exports.setTcpSocket = function(socket){ tcpSocket = socket; };
 exports.cameraConnected = function(){
   console.log('camera connected');
   webSocket.sockets.emit('camera', {
-    status : 'camera:ready', humanTitle : 'Camera Ready'
+    status : 'ready', humanTitle : 'Camera Ready'
   });
   camera.startLiveView();
 };
@@ -25,7 +25,7 @@ exports.cameraConnected = function(){
 
 exports.cameraRecording = function(){
   webSocket.sockets.emit('camera', {
-    status : 'camera:recording', humanTitle : 'Camera Recording'
+    status : 'recording', humanTitle : 'Camera Recording'
   });
 };
 
@@ -41,7 +41,7 @@ exports.cameraDoneRecording = function(){
 
     // tell the client we're done recording
     io.sockets.emit('camera', {
-      status : 'camera:done-recording', humanTitle : 'Camera Done Recording'
+      status : 'done-recording', humanTitle : 'Camera Done Recording'
     });
 
     camera.writeLastVideoToDisk(outputDir, function(filePath){
@@ -51,7 +51,7 @@ exports.cameraDoneRecording = function(){
       // restart the live view and tell the client
       camera.startLiveView();
       io.sockets.emit('camera', {
-        status : 'camera:ready', humanTitle : 'Camera Ready'
+        status : 'ready', humanTitle : 'Camera Ready'
       });
 
     });

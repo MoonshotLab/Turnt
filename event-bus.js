@@ -100,4 +100,31 @@ exports.editingComplete = function(data){
 };
 
 
+
+
+// # WIFI
+exports.joinWifi = function(network){
+  var username  = config.WIFI_USERNAME;
+  var password  = config.WIFI_PASSWORD;
+
+  if(network == 'gopro'){
+    username = config.GOPRO_USERNAME;
+    password = config.GOPRO_PASSWORD;
+  }
+
+  var command = [
+    'python',
+    './scripts/join-wireless.py',
+    username, password
+  ].join(' ');
+
+  var child = cp.exec(command);
+  child.on('exit', function(code){
+    if(code === 0)
+      emitter.emit('wifi-joined', { network : network });
+  });
+};
+
+
+
 exports.events = emitter;

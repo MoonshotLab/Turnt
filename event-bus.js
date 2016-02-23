@@ -1,6 +1,8 @@
-var events      = require('events');
-var emitter     = new events.EventEmitter();
+var events    = require('events');
+var config    = require('./config')();
+var emitter   = new events.EventEmitter();
 var camera    = require('./lib/camera');
+var cp        = require('child_process');
 var webSocket = null;
 var tcpSocket = null;
 
@@ -63,7 +65,8 @@ exports.cameraDoneRecording = function(){
 
 // # EVENT BUS MESSAGES
 exports.launchEditor = function(){
-  // TODO: how do i launch an OF binary with flags?
+  var command = 'open ' + config.TURNT_EDITOR_INTERFACE_PATH;
+  var child = cp.exec(command);
 };
 
 
@@ -90,6 +93,11 @@ exports.turntableUpdate = function(input, value, guid){
 };
 
 
+exports.editingComplete = function(data){
+  var obj = JSON.parse(data.toString('utf8'));
+  if(obj.message == 'done')
+    emitter.emit('editing-complete', filePath);
+};
 
 
 exports.events = emitter;

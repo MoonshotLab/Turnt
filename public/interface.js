@@ -1,3 +1,7 @@
+// # BROADCAST EVENTS
+// countdown-complete  |  the countdown has completed
+
+
 // listen to the camera
 socket.on('camera', function(data){
   switch(data.status){
@@ -40,7 +44,7 @@ var startCountdown = function(){
     $('.countdown-screen.one').show();
   }, 3500);
   setTimeout(function(){
-    socket.emit('countdown-done');
+    socket.emit('countdown-complete');
   }, 4500);
 
   // reset the countdown ui

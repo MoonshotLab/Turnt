@@ -1,3 +1,4 @@
+var path      = require('path');
 var events    = require('events');
 var config    = require('./config')();
 var emitter   = new events.EventEmitter();
@@ -14,59 +15,11 @@ exports.setTcpSocket = function(socket){ tcpSocket = socket; };
 
 
 
-
-// # CAMERA EVENTS
-exports.cameraConnected = function(){
-  console.log('camera connected');
-  webSocket.sockets.emit('camera', {
-    status : 'ready', humanTitle : 'Camera Ready'
-  });
-  camera.startLiveView();
-};
-
-
-exports.cameraRecording = function(){
-  webSocket.sockets.emit('camera', {
-    status : 'recording', humanTitle : 'Camera Recording'
-  });
-};
-
-
-exports.cameraDoneRecording = function(){
-  // create an output directory with random id
-  var id = new Date().getTime().toString();
-  var outputDir = path.join(process.cwd(), 'tmp', id);
-  fs.mkdirSync(outputDir);
-
-  // timeout is necessary to give the camera enough time to "stop recording"
-  setTimeout(function(){
-
-    // tell the client we're done recording
-    io.sockets.emit('camera', {
-      status : 'done-recording', humanTitle : 'Camera Done Recording'
-    });
-
-    camera.writeLastVideoToDisk(outputDir, function(filePath){
-      // let everyone know we're done downloading the file
-      emitter.emit('video-downloaded', filePath);
-
-      // restart the live view and tell the client
-      camera.startLiveView();
-      io.sockets.emit('camera', {
-        status : 'ready', humanTitle : 'Camera Ready'
-      });
-
-    });
-  }, 2500);
-};
-
-
-
-
 // # EVENT BUS MESSAGES
 exports.launchEditor = function(){
-  var command = 'open ' + config.TURNT_EDITOR_INTERFACE_PATH;
-  var child = cp.exec(command);
+  var editorPath  = path.join(config.TURNT_EDITOR_INTERFACE_PATH, 'Turnt-EditorInterfaceDebug.app');
+  var command     = 'open ' + editorPath;
+  cp.exec(command);
 };
 
 
@@ -103,7 +56,7 @@ exports.editingComplete = function(data){
 
 
 // # WIFI
-exports.joinWifi = function(network){
+exports.joinWifi = function(network, next){
   var username  = config.WIFI_USERNAME;
   var password  = config.WIFI_PASSWORD;
 
@@ -122,6 +75,8 @@ exports.joinWifi = function(network){
   child.on('exit', function(code){
     if(code === 0)
       emitter.emit('wifi-joined', { network : network });
+
+    if(next) next(code, null);
   });
 };
 

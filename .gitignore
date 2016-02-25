@@ -2,3 +2,5 @@
 node_modules
 public/live-feed.jpg
 env-vars.js
+tmp/*
+!tmp/.gitkeep

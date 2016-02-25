@@ -45,7 +45,7 @@ arduino.events.on('start', function(){
 
 // when the interface countdown is done
 display.events.on('countdown-complete', function(){
-  arduino.turnLightsOn();
+  arduino.lights(1);
   gopro.record();
   display.debug('Recording');
 });
@@ -53,6 +53,8 @@ display.events.on('countdown-complete', function(){
 // when the gopro is done recording
 gopro.events.on('done-recording', function(){
   editor.launch();
+  display.showScreen('done');
+  arduino.lights(0);
   display.debug('Done Recording');
 });
 
@@ -63,7 +65,7 @@ turntable.events.on('input-update', function(data){
 
 // when the external editor is all done
 editor.events.on('editing-complete', function(){
-  video.process();
+  video.assemble();
   display.debug('Assembling Frames');
 });
 
@@ -75,22 +77,31 @@ video.events.on('video-assembled', function(){
 
 // when the user has entered their contact information
 display.events.on('contact-entered', function(contact){
-  display.showScreen('processing');
+  display.showScreen('Joining internet connected wifi...');
 
-  utils.joinWifi('internet')
-    .then(video.upload)
-    .then(function(videoPath){
-      display.debug('Uploaded and texted! Reinitializing...');
+  if(contact === null){
+    display.debug('Ready');
+    display.showScreen('ready');
+  } else {
+    display.debug('Updating the wifi connection...');
 
-      utils.joinWifi('gopro').then(function(){
-        display.debug('Ready');
-        display.showScreen('ready');
+    // we need to dump the gopro wifi to connect to the internet
+    utils.joinWifi('internet').then(function(){
+      display.debug('Uploading video...');
+
+      // upload our content to the internet
+      video.process(contact).then(function(){
+        display.debug('Uploaded! Reinitializing...');
+
+        utils.joinWifi('gopro').then(function(){
+          display.debug('Ready');
+          display.showScreen('ready');
+        });
       });
+
     });
-
-    display.debug('Got Contact Data, uploading...');
+  }
 });
-
 
 
 

@@ -4,3 +4,4 @@ public/live-feed.jpg
 env-vars.js
 tmp/*
 !tmp/.gitkeep
+daemon/

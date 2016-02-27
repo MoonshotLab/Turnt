@@ -2,6 +2,12 @@
 // countdown-complete  |  the countdown has completed
 
 
+// setup a websocket client to consumer the live stream
+var client = new WebSocket('ws://127.0.0.1:8084/');
+var canvas = document.getElementById('video-canvas');
+var player = new jsmpeg(client, { canvas: canvas });
+
+
 // listen to the camera
 socket.on('camera', function(data){
   switch(data.status){

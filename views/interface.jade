@@ -2,8 +2,11 @@ extends layout
 
 block head
   link(rel='stylesheet' href='interface.css')
+  script(src='/vendor/jsmpg.js')
 
 block content
+  canvas#video-canvas
+
   .state.ready
     img.live-feed(src='/live-feed.jpg')
 
@@ -31,4 +34,4 @@ block content
     h1 Processing
 
 
-  script(src='interface.js')
+  script(src='/interface.js')

@@ -3,7 +3,9 @@ var express   = require('express');
 var app       = express();
 var server    = require('http').createServer(app);
 var io        = require('socket.io')(server);
+var config    = require('./config')();
 var utils     = require('./lib/utils');
+var path      = require('path');
 
 // make tcp server used for the editing interface
 var tcpServer = require('net').createServer(function(socket){
@@ -15,10 +17,14 @@ var tcpServer = require('net').createServer(function(socket){
 // express configuration
 app.use(express.static('public'));
 app.use(express.static('tmp'));
-server.listen(process.env.PORT || '3000');
+server.listen(config.PORT);
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'jade');
+
 
 // join the gopro network
 utils.joinWifi('gopro').then(function(){
+  gopro.setup();
   display.debug('Ready');
   display.showScreen('ready');
 });
@@ -36,6 +42,7 @@ var turntable = require('./lib/turntable');
 
 // have the display module listen for events from the webpage
 io.on('connection', display.listen);
+gopro.startLiveStream();
 
 // when a physical button press comes from the arduino
 arduino.events.on('start', function(){
@@ -96,6 +103,7 @@ display.events.on('contact-entered', function(phone){
         utils.joinWifi('gopro').then(function(){
           display.debug('Ready');
           display.showScreen('ready');
+          gopro.startLiveStream();
         });
       });
 
@@ -106,4 +114,6 @@ display.events.on('contact-entered', function(phone){
 
 
 // # ROUTES
-app.get('/', function(req, res){ res.render('interface'); });
+var routes = require('./lib/routes');
+app.get('/', routes.interface);
+app.post('/stream-image', routes.streamImage);

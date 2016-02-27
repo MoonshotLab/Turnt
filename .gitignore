@@ -5,3 +5,4 @@ env-vars.js
 tmp/*
 !tmp/.gitkeep
 daemon/
+public/vendor/*

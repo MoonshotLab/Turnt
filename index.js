@@ -22,21 +22,12 @@ server.listen(config.PORT);
 app.set('views', path.join(__dirname, 'views'));
 
 
-// join the gopro network
-utils.joinWifi('gopro').then(function(){
-  gopro.setup();
-  display.debug('Ready');
-  display.showScreen('ready');
-});
-
-
-
 
 // # EVENT HANDLERS
 var arduino   = require('./lib/arduino');
 var editor    = require('./lib/editor');
 var display   = require('./lib/display');
-var gopro     = require('./lib/gopro');
+var camera    = require('./lib/camera');
 var video     = require('./lib/video');
 var turntable = require('./lib/turntable');
 
@@ -45,7 +36,7 @@ display.setWebSocket(io);
 
 // have the display module listen for events from the webpage
 io.on('connection', display.listen);
-gopro.startLiveStream();
+camera.startLiveStream();
 
 // when a physical button press comes from the arduino
 arduino.events.on('start', function(){
@@ -56,12 +47,12 @@ arduino.events.on('start', function(){
 // when the interface countdown is done
 display.events.on('countdown-complete', function(){
   arduino.lights(1);
-  gopro.record();
+  camera.record();
   display.debug('Recording');
 });
 
-// when the gopro is done recording
-gopro.events.on('done-recording', function(){
+// when the camera is done recording
+camera.events.on('done-recording', function(){
   arduino.lights(0);
   editor.launch();
   display.debug('Done Recording');
@@ -93,28 +84,20 @@ display.events.on('contact-entered', function(phone){
     display.debug('Ready');
     display.showScreen('ready');
   } else {
-    display.debug('Updating the wifi connection...');
+    display.debug('Uploading video...');
     display.showScreen('done');
 
-    // we need to dump the gopro wifi to connect to the internet
-    utils.joinWifi('internet').then(function(){
-      display.debug('Uploading video...');
+    // upload our content to the internet
+    video.process(contact).then(function(guid){
 
-      // upload our content to the internet
-      video.process(contact).then(function(guid){
-        display.debug('Uploaded! Reinitializing...');
+      // save the file locally
+      db.set(guid, guid);
+      display.newVideo(guid);
 
-        // save the file locally
-        db.set(guid, guid);
-        display.newVideo(guid);
-
-        utils.joinWifi('gopro').then(function(){
-          display.debug('Ready');
-          display.showScreen('ready');
-          gopro.startLiveStream();
-        });
-      });
-
+      // tell the client
+      display.debug('Uploaded! Ready');
+      display.showScreen('ready');
+      camera.startLiveStream();
     });
   }
 });

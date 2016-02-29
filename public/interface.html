@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, user-scalable=no'>
+
+    <link rel='stylesheet' href='/reset.css'>
+    <link rel='stylesheet' href='/interface.css'>
+
+    <script src='/vendor/jquery.js'></script>
+    <script src='/vendor/jsmpg.js'></script>
+    <script src='/vendor/validator.js'></script>
+    <script src='/socket.io/socket.io.js'></script>
+    <script>var socket = io();</script>
+  </head>
+
+  <body>
+
+    <div class='state ready'>
+      <h1>Ready</h1>
+      <canvas id='live-preview'></canvas>
+    </div>
+
+    <div class='state countdown'>
+      <div class='countdown-screen one'></div>
+      <div class='countdown-screen two'></div>
+      <div class='countdown-screen three'></div>
+      <div class='countdown-screen prep'></div>
+    </div>
+
+    <div class='state recording'></div>
+
+    <div class='state done'></div>
+
+    <div class='state processing'></div>
+
+    <div class='state contact'>
+      <div class='contact-form'>
+        <label>ENTER YOUR PHONE NUMBER</label>
+        <input type='tel', id='phone-entry' />
+      </div>
+    </div>
+
+    <script src='/interface.js'></script>
+
+  </body>

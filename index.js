@@ -40,6 +40,9 @@ var gopro     = require('./lib/gopro');
 var video     = require('./lib/video');
 var turntable = require('./lib/turntable');
 
+// give the interface a web socket to use
+display.setWebSocket(io);
+
 // have the display module listen for events from the webpage
 io.on('connection', display.listen);
 gopro.startLiveStream();
@@ -59,9 +62,8 @@ display.events.on('countdown-complete', function(){
 
 // when the gopro is done recording
 gopro.events.on('done-recording', function(){
-  editor.launch();
-  display.showScreen('done');
   arduino.lights(0);
+  editor.launch();
   display.debug('Done Recording');
 });
 
@@ -72,6 +74,7 @@ turntable.events.on('input-update', function(data){
 
 // when the external editor is all done
 editor.events.on('editing-complete', function(){
+  display.showScreen('processing');
   video.assemble();
   display.debug('Assembling Frames');
 });
@@ -84,13 +87,14 @@ video.events.on('video-assembled', function(){
 
 // when the user has entered their contact information
 display.events.on('contact-entered', function(phone){
-  display.showScreen('Joining internet connected wifi...');
+  display.debug('Joining internet connected wifi...');
 
   if(phone === null){
     display.debug('Ready');
     display.showScreen('ready');
   } else {
     display.debug('Updating the wifi connection...');
+    display.showScreen('done');
 
     // we need to dump the gopro wifi to connect to the internet
     utils.joinWifi('internet').then(function(){

@@ -3,35 +3,29 @@ extends layout
 block head
   link(rel='stylesheet' href='interface.css')
   script(src='/vendor/jsmpg.js')
+  script(src='/vendor/validator.js')
 
 block content
-  canvas#video-canvas
 
   .state.ready
-    img.live-feed(src='/live-feed.jpg')
-
+    h1 Ready
+    canvas#live-preview
 
   .state.countdown
     .countdown-screen.one
-      h1 1
     .countdown-screen.two
-      h1 2
     .countdown-screen.three
-      h1 3
     .countdown-screen.prep
-      h1 Get Ready
-    
-    
+        
   .state.recording
-    h1 Recording
-
 
   .state.done
-    h1 Done
 
-  
   .state.processing
-    h1 Processing
-
+  
+  .state.contact
+    .contact-form
+      label ENTER YOUR PHONE NUMBER
+      input(type='tel', id='phone-entry')
 
   script(src='/interface.js')

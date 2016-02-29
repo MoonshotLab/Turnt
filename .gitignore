@@ -5,4 +5,5 @@ tmp/*
 !tmp/.gitkeep
 daemon/
 public/vendor/*
+!public/vendor/.gitkeep
 turnt.db

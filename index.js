@@ -5,6 +5,7 @@ var server    = require('http').createServer(app);
 var io        = require('socket.io')(server);
 var config    = require('./config')();
 var utils     = require('./lib/utils');
+var dirty     = require('dirty')('turnt.db');
 var path      = require('path');
 
 // make tcp server used for the editing interface
@@ -23,11 +24,11 @@ app.set('view engine', 'jade');
 
 
 // join the gopro network
-utils.joinWifi('gopro').then(function(){
-  gopro.setup();
-  display.debug('Ready');
-  display.showScreen('ready');
-});
+// utils.joinWifi('gopro').then(function(){
+//   gopro.setup();
+//   display.debug('Ready');
+//   display.showScreen('ready');
+// });
 
 
 
@@ -38,14 +39,14 @@ var editor    = require('./lib/editor');
 var display   = require('./lib/display');
 var gopro     = require('./lib/gopro');
 var video     = require('./lib/video');
-var turntable = require('./lib/turntable');
+// var turntable = require('./lib/turntable');
 
 // give the interface a web socket to use
 display.setWebSocket(io);
 
 // have the display module listen for events from the webpage
 io.on('connection', display.listen);
-gopro.startLiveStream();
+// gopro.startLiveStream();
 
 // when a physical button press comes from the arduino
 arduino.events.on('start', function(){
@@ -68,9 +69,9 @@ gopro.events.on('done-recording', function(){
 });
 
 // when the turntable detects some new input
-turntable.events.on('input-update', function(data){
-  editor.turntableUpdate(data);
-});
+// turntable.events.on('input-update', function(data){
+//   editor.turntableUpdate(data);
+// });
 
 // when the external editor is all done
 editor.events.on('editing-complete', function(){
@@ -101,8 +102,12 @@ display.events.on('contact-entered', function(phone){
       display.debug('Uploading video...');
 
       // upload our content to the internet
-      video.process(contact).then(function(){
+      video.process(contact).then(function(guid){
         display.debug('Uploaded! Reinitializing...');
+
+        // save the file locally
+        db.set(guid, guid);
+        display.newVideo(guid);
 
         utils.joinWifi('gopro').then(function(){
           display.debug('Ready');
@@ -121,3 +126,5 @@ display.events.on('contact-entered', function(phone){
 var routes = require('./lib/routes');
 app.get('/', routes.interface);
 app.post('/stream-image', routes.streamImage);
+app.get('/showcase-view', routes.showcaseView);
+app.get('/showcase', routes.showcase);

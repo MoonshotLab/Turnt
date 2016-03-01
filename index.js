@@ -10,10 +10,12 @@ var path      = require('path');
 
 // make tcp server used for the editing interface
 var tcpServer = require('net').createServer(function(socket){
+  socket.pipe(socket);
   editor.setTcpSocket(socket);
-  socket.on('data', utils.editingComplete);
+  socket.on('data', editor.editingComplete);
   socket.on('close', socket.end);
-}).listen(process.env.TCP_PORT || 3001, '127.0.0.1');
+  socket.on('error', function(e){ });
+}).listen(config.TCP_PORT, '127.0.0.1');
 
 // express configuration
 app.use(express.static('public'));
@@ -88,7 +90,7 @@ display.events.on('contact-entered', function(phone){
     display.showScreen('done');
 
     // upload our content to the internet
-    video.process(contact).then(function(guid){
+    video.process(phone).then(function(guid){
 
       // save the file locally
       db.set(guid, guid);

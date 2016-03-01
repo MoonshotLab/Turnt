@@ -42,22 +42,30 @@ camera.startLiveStream();
 
 // when a physical button press comes from the arduino
 arduino.events.on('start', function(){
-  display.showScreen('countdown');
-  display.debug('Starting Session');
+  if(display.getState() == 'ready'){
+    display.showScreen('countdown');
+    display.debug('Starting Session');
+  }
 });
 
 // when the interface countdown is done
 display.events.on('countdown-complete', function(){
   arduino.lights(1);
   camera.record();
+  display.show('recording');
   display.debug('Recording');
 });
 
 // when the camera is done recording
 camera.events.on('done-recording', function(){
   arduino.lights(0);
-  editor.launch();
+  display.show('tutorial');
   display.debug('Done Recording');
+});
+
+// when the tutorial video is done
+display.events.on('tutorial-done', function(){
+  editor.launch();
 });
 
 // when the turntable detects some new input
@@ -112,3 +120,4 @@ app.get('/', routes.interface);
 app.post('/stream-image', routes.streamImage);
 app.get('/showcase-view', routes.showcaseView);
 app.get('/showcase', routes.showcase);
+app.get('/prompt', routes.getPrompt);

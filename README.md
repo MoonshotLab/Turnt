@@ -2,11 +2,10 @@
 GET TURNT!
 
 
-## Non Node Dependencies
-* [ffmpeg](https://www.ffmpeg.org/)
-* [arduino](https://www.arduino.cc/)
-* [firmata installed on an arduino](https://www.arduino.cc/en/Reference/Firmata)
-* [kiosk mode] (https://github.com/alex-tomin/Tomin.Tools.KioskMode)
+## Non-Node Dependencies
+* [ffmpeg](https://www.ffmpeg.org/) - Make sure to install with libvpx and libvorbis `brew reinstall ffmpeg --with-libvpx --with-libvorbis`
+* [arduino](https://www.arduino.cc/) with the standard  [firmata](https://www.arduino.cc/en/Reference/Firmata) example installed.
+* [kiosk mode](https://github.com/alex-tomin/Tomin.Tools.KioskMode)
 
 
 ## Additional Setup Instructions

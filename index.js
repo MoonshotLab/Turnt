@@ -13,7 +13,7 @@ var tcpServer = require('net').createServer(function(socket){
   socket.pipe(socket);
   editor.setTcpSocket(socket);
   socket.on('data', editor.editingComplete);
-  socket.on('close', socket.end);
+  socket.on('close', function(){ if(socket.writable) socket.end() });
   socket.on('error', function(e){ });
 }).listen(config.TCP_PORT, '127.0.0.1');
 

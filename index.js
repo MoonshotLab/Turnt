@@ -52,14 +52,14 @@ arduino.events.on('start', function(){
 display.events.on('countdown-complete', function(){
   arduino.lights(1);
   camera.record();
-  display.show('recording');
+  display.showScreen('recording');
   display.debug('Recording');
 });
 
 // when the camera is done recording
 camera.events.on('done-recording', function(){
   arduino.lights(0);
-  display.show('tutorial');
+  display.showScreen('tutorial');
   display.debug('Done Recording');
 });
 

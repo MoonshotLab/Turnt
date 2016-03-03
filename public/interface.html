@@ -17,34 +17,48 @@
   <body>
 
     <div class='state ready'>
-      <canvas id='live-preview'></canvas>
+      <h1>Ready</h1>
+      <video id='video-ready' loop>
+        <source src='/screens/ready.mp4' type='video/mp4' />
+      </video>
     </div>
 
     <div class='state countdown'>
-      <div class='countdown-screen prompt'></div>
+      <div class='countdown-screen prompt-b'></div>
+      <div class='countdown-screen prompt-a'></div>
       <div class='countdown-screen one'></div>
       <div class='countdown-screen two'></div>
       <div class='countdown-screen three'></div>
       <div class='countdown-screen prep'></div>
+      <canvas id='live-preview'></canvas>
     </div>
 
-    <div class='state recording'></div>
-
     <div class='state tutorial'>
-      <video id='tutorial-video'>
-        <source src='/tutorial.mp4'>
+      <h1>Tutorial</h1>
+      <video id='video-tutorial'>
+        <source src='/screens/tutorial.mp4' type='video/mp4' />
       </video>
     </div>
 
-    <div class='state done'></div>
-
-    <div class='state processing'></div>
+    <div class='state done'>
+      <h1>Done</h1>
+      <video id='video-done'>
+        <source src='/screens/done.mp4' type='video/mp4' />
+      </video>
+    </div>
 
     <div class='state contact'>
-      <div class='contact-form'>
-        <label>ENTER YOUR PHONE NUMBER</label>
-        <input type='tel', id='phone-entry' />
-      </div>
+      <video id='video-contact' loop>
+        <source src='/screens/done.mp4' type='video/mp4' />
+      </video>
+      <input type='tel', id='phone-entry' />
+    </div>
+
+    <div class='state gotit'>
+      <h1>Got It</h1>
+      <video id='video-gotit'>
+        <source src='/screens/gotit.mp4' type='video/mp4' />
+      </video>
     </div>
 
     <script src='/interface.js'></script>

@@ -13,7 +13,7 @@ var tcpServer = require('net').createServer(function(socket){
   socket.pipe(socket);
   editor.setTcpSocket(socket);
   socket.on('data', editor.editingComplete);
-  socket.on('close', function(){ if(socket.writable) socket.end() });
+  socket.on('close', function(){ if(socket.writable) socket.end(); });
   socket.on('error', function(e){ });
 }).listen(config.TCP_PORT, '127.0.0.1');
 
@@ -52,7 +52,6 @@ arduino.events.on('start', function(){
 display.events.on('countdown-complete', function(){
   arduino.lights(1);
   camera.record();
-  display.showScreen('recording');
   display.debug('Recording');
 });
 
@@ -75,7 +74,7 @@ turntable.events.on('input-update', function(data){
 
 // when the external editor is all done
 editor.events.on('editing-complete', function(){
-  display.showScreen('processing');
+  display.showScreen('done');
   video.assemble();
   display.debug('Assembling Frames');
 });
@@ -92,10 +91,8 @@ display.events.on('contact-entered', function(phone){
 
   if(phone === null){
     display.debug('Ready');
-    display.showScreen('ready');
   } else {
     display.debug('Uploading video...');
-    display.showScreen('done');
 
     // upload our content to the internet
     video.process(phone).then(function(guid){
@@ -106,7 +103,6 @@ display.events.on('contact-entered', function(phone){
 
       // tell the client
       display.debug('Uploaded! Ready');
-      display.showScreen('ready');
       camera.startLiveStream();
     });
   }

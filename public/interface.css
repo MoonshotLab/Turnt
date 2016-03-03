@@ -4,13 +4,6 @@ body{
 }
 
 
-#live-preview{
-  height: 100%;
-  display: block;
-  margin: auto;
-}
-
-
 .state, .countdown-screen{
   display: none;
   width: 100%;
@@ -18,51 +11,50 @@ body{
   background-position: center center;
   background-size: contain;
 }
-.state.ready{
-  display: block;
+
+h1{
+  position: absolute;
+  top: 0;
 }
-.state.contact .contact-form{
-  width: 60%;
+
+video{
+  height: 100%;
+}
+
+
+
+/* Countdown */
+#live-preview{
+  position: absolute;
+  top: 0;
+  height: 100%;
+  display: block;
   margin: auto;
-  margin-top: 20%;
-}
-.state.contact .contact-form label{
-  display: block;
-  font-size: 140%;
-  margin-bottom: 10px;
-}
-.state.contact .contact-form input{
-  font-size: 140%;
-  padding: 5px;
-  border: none;
-  width: 100%;
-  text-align: center;
-}
-.state.recording{
-  background-image: url('/screens/recording.png');
-}
-.state.done{
-  background-image: url('/screens/done.png');
-}
-.state.processing{
-  background-image: url('/screens/processing.png');
-}
-.countdown-screen.one{
-  background-image: url('/screens/countdown-1.png');
-}
-.countdown-screen.two{
-  background-image: url('/screens/countdown-2.png');
-}
-.countdown-screen.three{
-  background-image: url('/screens/countdown-3.png');
+  left: 25%;
 }
 .countdown-screen.prep{
   background-image: url('/screens/prep.png');
 }
+.countdown-screen.three{
+  background-image: url('/screens/countdown-3.png');
+}
+.countdown-screen.two{
+  background-image: url('/screens/countdown-2.png');
+}
+.countdown-screen.one{
+  background-image: url('/screens/countdown-1.png');
+}
 
-
-
-.state.ready .live-feed{
-  width: 100%;
-  height: 100%;
+/* Contact */
+#phone-entry{
+  color: #adf130;
+  font-weight: bold;
+  font-size: 400%;
+  border: none;
+  position: absolute;
+  top: 20%;
+  left: 5%;
+}
+#phone-entry:focus {
+  outline-width: 0;
 }

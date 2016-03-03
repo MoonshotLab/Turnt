@@ -56,7 +56,7 @@ var startCountdown = function(){
     url : '/prompt',
     success : function(image){
       $('.countdown-screen.prompt').css(
-        'background-image', 'url(' + image + ')'
+        'background-image', 'url(prompts/' + image + ')'
       );
     }
   });

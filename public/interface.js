@@ -23,7 +23,7 @@ $(function(){
 
   // listen for the end of the tutorial video
   $('#tutorial-video')[0].onEnded = function(){
-
+    socket.emit('tutorial-done');
   };
 });
 
@@ -44,7 +44,7 @@ socket.on('screen', function(screen){
 
 
 var startTutorial = function(){
-  $('#tutorial-video').play();
+  $('#tutorial-video')[0].play();
 };
 
 

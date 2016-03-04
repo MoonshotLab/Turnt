@@ -94,16 +94,16 @@ display.events.on('contact-entered', function(phone){
   } else {
     display.debug('Uploading video...');
 
+    // tell the client we're ready to record again
+    camera.startLiveStream();
+
     // upload our content to the internet
     video.process(phone).then(function(guid){
+      display.debug('Uploaded! Ready');
 
       // save the file locally
-      db.set(guid, guid);
+      dirty.set(guid, guid);
       display.newVideo(guid);
-
-      // tell the client
-      display.debug('Uploaded! Ready');
-      camera.startLiveStream();
     });
   }
 });

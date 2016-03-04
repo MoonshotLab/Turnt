@@ -17,6 +17,7 @@ var attachContactEntryEvents = function(){
     var phoneNumber = $('#phone-entry').val();
     if(e.keyCode == 13){
       if(validator.isMobilePhone(phoneNumber, 'en-US')){
+        if(phoneNumber.charAt(0) != '1') phoneNumber = '1' + phoneNumber;
         socket.emit('contact-entered', phoneNumber);
         changeState('gotit');
         $('#phone-entry').val('');

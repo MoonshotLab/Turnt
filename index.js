@@ -33,12 +33,29 @@ var camera    = require('./lib/camera');
 var video     = require('./lib/video');
 var turntable = require('./lib/turntable');
 
+
+var softStart = function(){
+	// open the interfaces
+	camera.killProcess();
+
+	setTimeout(function(){
+		video.cleanFrames();
+		camera.startLiveStream();
+		utils.launchGUI();
+		display.setState('ready');
+		arduino.lights(0);
+	}, 2000);
+}
+
+
 // give the interface a web socket to use
 display.setWebSocket(io);
 
 // have the display module listen for events from the webpage
 io.on('connection', display.listen);
-camera.startLiveStream();
+
+// start it
+softStart();
 
 // when a physical button press comes from the arduino
 arduino.events.on('start', function(){
@@ -47,6 +64,11 @@ arduino.events.on('start', function(){
     display.debug('Starting Session');
   }
 });
+
+// add a fail save which allows "some" stuff to get restarted
+// TODO: this could probably be a little better incorporated
+arduino.events.on('restart', softStart);
+
 
 // when the interface countdown is done
 display.events.on('countdown-complete', function(){

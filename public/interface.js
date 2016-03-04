@@ -42,6 +42,9 @@ var attachVideoPlaybackEvents = function(){
     changeState('contact');
   });
   $('#video-gotit')[0].addEventListener('ended', function(){
+    changeState('review');
+  });
+  $('#video-review')[0].addEventListener('ended', function(){
     socket.emit('ready');
     changeState('ready');
   });
@@ -127,6 +130,11 @@ var changeState = function(state){
       break;
     case 'gotit':
       $('#video-gotit')[0].play();
+      break;
+    case 'review':
+      var filePath = '/assembled-frames.mp4?cacheBust=' + new Date().getTime();
+      $('#video-review')[0].src = filePath;
+      $('#video-review')[0].play();
       break;
     case 'contact':
       $('#video-contact')[0].play();

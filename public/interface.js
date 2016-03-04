@@ -83,11 +83,6 @@ var startCountdown = function(){
 
 
 
-// listen to screen change events from the server
-socket.on('screen', changeState);
-
-
-
 // change the state
 var changeState = function(state){
   // stop all the vidyas and put them back to original position
@@ -124,6 +119,11 @@ var changeState = function(state){
       break;
   }
 };
+
+
+
+// listen to screen change events from the server
+socket.on('screen', changeState);
 
 
 $(function(){

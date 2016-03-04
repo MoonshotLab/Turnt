@@ -30,7 +30,12 @@ video{
   height: 100%;
   display: block;
   margin: auto;
-  left: 25%;
+  left: 12.5%;
+  z-index: 1;
+}
+.countdown-screen{
+  position: relative;
+  z-index: 2;
 }
 .countdown-screen.prep{
   background-image: url('/screens/prep.png');

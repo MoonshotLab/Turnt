@@ -21,7 +21,12 @@ var attachContactEntryEvents = function(){
         socket.emit('contact-entered', phoneNumber);
         changeState('gotit');
         $('#phone-entry').val('');
-      } else alert('not a phone number');
+      } else{
+        $('#error-message').addClass('show');
+        setTimeout(function(){
+          $('#error-message').removeClass('show');
+        }, 2000);
+      }
     }
   });
 };

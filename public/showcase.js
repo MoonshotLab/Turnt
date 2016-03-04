@@ -20,7 +20,7 @@ $(function(){
 socket.on('new-video', function(data){
   if(data.screen == displayOptions.screen){
     var index = getRandomNumber(0, 2);
-    playRandomVideo(index);
+    playVideo(index, data.guid);
     resetInterval(index);
   }
 });
@@ -35,10 +35,10 @@ socket.on('debug', function(text){
 
 // populate the videos, but delay so nothing plays in sync
 setTimeout(function(){
-  playRandomVideo(0);
+  fetchVideo(0);
 }, getRandomNumber(0, 3000));
 setTimeout(function(){
-  playRandomVideo(1);
+  fetchVideo(1);
 }, getRandomNumber(1000, 10000));
 
 // setup intervals to refetch videos
@@ -54,25 +54,29 @@ function resetInterval(index){
   if(refetchIntervals[index]) clearInterval(refetchIntervals[index]);
 
   refetchIntervals[index] = setInterval(function(){
-    playRandomVideo(index);
+    fetchVideo(index);
   }, 30000);
 }
 
 
 
-// play a video from the showcase
-function playRandomVideo(index){
+function playVideo(index, guid){
+	$($('.video-player')[index]).addClass('hide');
+	setTimeout(function(){
+		$('video')[index].src = '/' + guid + '/' + guid + '.mp4';
+		$('video')[index].play();
+		$($('.video-player')[index]).removeClass('hide');
+	}, 500);
+}
+
+
+
+// play a video from the showcase or pass in one and get it played
+function fetchVideo(index){
   $.ajax({
     url : '/showcase?shuffle=true',
     success : function(results){
-      if(results.length){
-	      $($('.video-player')[index]).addClass('hide');
-	      setTimeout(function(){
-	        $('video')[index].src = results[0] + '.mp4';
-	        $('video')[index].play();
-	        $($('.video-player')[index]).removeClass('hide');
-	      }, 500);
-  	  }
+		if(results.length) playVideo(index, results[0]);
     }
   });
 }

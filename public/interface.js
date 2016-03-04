@@ -39,9 +39,6 @@ var attachVideoPlaybackEvents = function(){
   $('#video-tutorial')[0].addEventListener('ended', function(){
     socket.emit('tutorial-done');
   });
-  $('#video-done')[0].addEventListener('ended', function(){
-    changeState('review');
-  });
   $('#video-review')[0].addEventListener('ended', function(){
     changeState('contact');
   });
@@ -131,8 +128,10 @@ var changeState = function(state){
       break;
     case 'review':
       var filePath = '/assembled-frames.mp4?cacheBust=' + new Date().getTime();
-      $('#video-review')[0].src = filePath;
-      $('#video-review')[0].play();
+      $('#video-review-source')[0].src = filePath;
+      setTimeout(function(){
+        $('#video-review')[0].play();
+      }, 10);
       break;
     case 'contact':
       $('#video-contact')[0].play();
@@ -144,7 +143,7 @@ var changeState = function(state){
       break;
   }
 
-  socket.emit('state', state);
+  socket.emit('state-change', state);
 };
 
 

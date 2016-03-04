@@ -60,6 +60,7 @@ softStart();
 
 // when a physical button press comes from the arduino
 arduino.events.on('start', function(){
+  console.log('pressed')
   if(display.getState() == 'ready'){
     arduino.stopTwinkling();
     display.showScreen('countdown');
@@ -105,20 +106,17 @@ editor.events.on('editing-complete', function(){
 
 // when the video frames are assembled
 video.events.on('video-assembled', function(){
-  display.showScreen('contact');
+  display.showScreen('review');
   display.debug('Waiting for Contact Information');
 });
 
 // when the user has entered their contact information
 display.events.on('contact-entered', function(phone){
-  display.debug('Uploading video...');
-
-  // restart the camera stream
-  camera.startLiveStream();
+  display.debug('Uploading Video');
 
   // upload our content to the internet
   video.process(phone).then(function(guid){
-    display.debug('Uploaded! Ready');
+    display.debug('Uploaded!');
 
     // save the file locally
     dirty.set(guid, guid);
@@ -129,6 +127,7 @@ display.events.on('contact-entered', function(phone){
 // when the display is ready to go again
 display.events.on('ready', function(){
   display.debug('Ready');
+  camera.startLiveStream();
   arduino.twinkleButton();
 });
 

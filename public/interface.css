@@ -1,6 +1,7 @@
 body{
   font-family: 'GT Walsheim';
   color: white;
+  background-color: white;
 }
 
 
@@ -54,11 +55,13 @@ video{
 #phone-entry{
   color: #adf130;
   font-weight: bold;
-  font-size: 400%;
+  font-size: 600%;
   border: none;
+  background-color: transparent;
   position: absolute;
-  top: 20%;
-  left: 5%;
+  top: 43%;
+  left: 31%;
+  width: 56%;
 }
 #phone-entry:focus {
   outline-width: 0;

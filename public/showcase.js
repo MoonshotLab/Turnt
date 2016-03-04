@@ -65,12 +65,14 @@ function playRandomVideo(index){
   $.ajax({
     url : '/showcase?shuffle=true',
     success : function(results){
-      $($('.video-player')[index]).addClass('hide');
-      setTimeout(function(){
-        $('video')[index].src = results[0] + '.mp4';
-        $('video')[index].play();
-        $($('.video-player')[index]).removeClass('hide');
-      }, 500);
+      if(results.length){
+	      $($('.video-player')[index]).addClass('hide');
+	      setTimeout(function(){
+	        $('video')[index].src = results[0] + '.mp4';
+	        $('video')[index].play();
+	        $($('.video-player')[index]).removeClass('hide');
+	      }, 500);
+  	  }
     }
   });
 }

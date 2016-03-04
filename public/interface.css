@@ -66,6 +66,7 @@ video{
   top: 43%;
   left: 31%;
   width: 56%;
+  z-index: 3;
 }
 #phone-entry:focus {
   outline-width: 0;

@@ -100,6 +100,9 @@ var changeState = function(state){
   var selector = '.state.' + state;
   $(selector).addClass('show');
 
+  // hide the hanging tel field
+  $('#phone-entry').hide();
+
   // do whatever special thing this state needs
   switch(state){
     case 'ready':
@@ -122,6 +125,7 @@ var changeState = function(state){
       break;
     case 'contact':
       $('#video-contact')[0].play();
+      $('#phone-entry').show();
       $('#phone-entry').focus();
       break;
   }

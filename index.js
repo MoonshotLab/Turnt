@@ -44,8 +44,9 @@ var softStart = function(){
 		utils.launchGUI();
 		display.setState('ready');
 		arduino.lights(0);
+    arduino.twinkleButton();
 	}, 2000);
-}
+};
 
 
 // give the interface a web socket to use
@@ -60,15 +61,14 @@ softStart();
 // when a physical button press comes from the arduino
 arduino.events.on('start', function(){
   if(display.getState() == 'ready'){
+    arduino.stopTwinkling();
     display.showScreen('countdown');
     display.debug('Starting Session');
   }
 });
 
 // add a fail save which allows "some" stuff to get restarted
-// TODO: this could probably be a little better incorporated
 arduino.events.on('restart', softStart);
-
 
 // when the interface countdown is done
 display.events.on('countdown-complete', function(){

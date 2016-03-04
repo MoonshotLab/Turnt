@@ -60,7 +60,6 @@ softStart();
 
 // when a physical button press comes from the arduino
 arduino.events.on('start', function(){
-  console.log('pressed')
   if(display.getState() == 'ready'){
     arduino.stopTwinkling();
     display.showScreen('countdown');

@@ -129,9 +129,8 @@ var changeState = function(state){
     case 'review':
       var filePath = '/assembled-frames.mp4?cacheBust=' + new Date().getTime();
       $('#video-review-source')[0].src = filePath;
-      setTimeout(function(){
-        $('#video-review')[0].play();
-      }, 10);
+      $('#video-review')[0].load();
+      $('#video-review')[0].play();
       break;
     case 'contact':
       $('#video-contact')[0].play();

@@ -56,24 +56,17 @@ video{
 }
 
 #error-message{
-  color: black;
-  font-family: 'Cubano';
-  background-color: #adf130;
   position: absolute;
-  top: 325px;
+  top: 375px;
   left: 411px;
-  height: 114px;
-  width: 794px;
-  font-size: 380%;
-  line-height: 115px;
+  height: 264px;
+  width: 647px;
   opacity: 0;
   z-index: 4;
-  text-align: center;
-  display: none;
   -webkit-transition: .25s linear opacity;
 }
 #error-message.show{
-  display: block;
+  top: 325px;
   opacity: 1;
 }
 

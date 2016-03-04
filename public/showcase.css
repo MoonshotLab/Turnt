@@ -1,3 +1,14 @@
+.debug{
+  display: none;
+  color: white;
+  font-size: 50%;
+  position: absolute;
+  font-family: monospace;
+  bottom: 0;
+}
+
+
+
 video{
   width: 100%;
   height: 100%;
@@ -12,6 +23,10 @@ video{
   opacity: 0;
 }
 
+
+body.screen-1 .debug{
+  display: block;
+}
 body.screen-1 .video-one{
   top: 0;
   left: 0;
@@ -25,6 +40,8 @@ body.screen-1 .video-two{
   height: 300px;
 }
 
+
+
 body.screen-2 .video-one{
   top: 0;
   left: 0px;
@@ -37,6 +54,8 @@ body.screen-2 .video-two{
   width: 400px;
   height: 300px;
 }
+
+
 
 body.screen-3 .video-one{
   top: 0;

@@ -87,8 +87,6 @@ video.events.on('video-assembled', function(){
 
 // when the user has entered their contact information
 display.events.on('contact-entered', function(phone){
-  display.debug('Joining internet connected wifi...');
-
   if(phone === null){
     display.debug('Ready');
   } else {

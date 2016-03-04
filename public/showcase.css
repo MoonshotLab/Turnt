@@ -28,44 +28,44 @@ body.screen-1 .debug{
   display: block;
 }
 body.screen-1 .video-one{
-  top: 0;
-  left: 0;
-  width: 400px;
-  height: 300px;
+  top: 81px;
+  left: 12px;
+  width: 555px;
+  height: 419px;
 }
 body.screen-1 .video-two{
-  top: 0;
-  left: 400px;
-  width: 400px;
-  height: 300px;
+  top: 75px;
+  left: 762px;
+  width: 624px;
+  height: 491px;
 }
 
 
 
 body.screen-2 .video-one{
-  top: 0;
-  left: 0px;
-  width: 400px;
-  height: 300px;
+  top: 238px;
+  left: 9px;
+  width: 597px;
+  height: 443px;
 }
 body.screen-2 .video-two{
-  top: 0;
-  left: 400px;
-  width: 400px;
-  height: 300px;
+  top: 165px;
+  left: 953px;
+  width: 457px;
+  height: 343px;
 }
 
 
 
 body.screen-3 .video-one{
-  top: 0;
-  left: 0;
-  width: 400px;
-  height: 300px;
+  top: 10px;
+  left: 5px;
+  width: 627px;
+  height: 464px;
 }
 body.screen-3 .video-two{
-  top: 0;
-  left: 400px;
-  width: 400px;
-  height: 300px;
+  top: 29px;
+  left: 721px;
+  width: 503px;
+  height: 379px;
 }

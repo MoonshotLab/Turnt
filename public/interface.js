@@ -1,7 +1,8 @@
 // # BROADCAST EVENTS
-// countdown-complete   |   the countdown has completed
+// state-chage          |   the countdown has completed
 // tutorial-done        |   the tutorial has been shown
 // contact-entered      |   someone entered their contact info
+// ready                |   flow is complete
 
 
 // setup a websocket client to consumer the live stream
@@ -39,12 +40,12 @@ var attachVideoPlaybackEvents = function(){
     socket.emit('tutorial-done');
   });
   $('#video-done')[0].addEventListener('ended', function(){
-    changeState('contact');
-  });
-  $('#video-gotit')[0].addEventListener('ended', function(){
     changeState('review');
   });
   $('#video-review')[0].addEventListener('ended', function(){
+    changeState('contact');
+  });
+  $('#video-gotit')[0].addEventListener('ended', function(){
     socket.emit('ready');
     changeState('ready');
   });
@@ -128,9 +129,6 @@ var changeState = function(state){
     case 'done':
       $('#video-done')[0].play();
       break;
-    case 'gotit':
-      $('#video-gotit')[0].play();
-      break;
     case 'review':
       var filePath = '/assembled-frames.mp4?cacheBust=' + new Date().getTime();
       $('#video-review')[0].src = filePath;
@@ -141,7 +139,12 @@ var changeState = function(state){
       $('#phone-entry').show();
       $('#phone-entry').focus();
       break;
+    case 'gotit':
+      $('#video-gotit')[0].play();
+      break;
   }
+
+  socket.emit('state', state);
 };
 
 

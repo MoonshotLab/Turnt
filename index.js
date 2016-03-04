@@ -64,6 +64,8 @@ arduino.events.on('start', function(){
     arduino.stopTwinkling();
     display.showScreen('countdown');
     display.debug('Starting Session');
+  } else if(display.getState() == 'contact'){
+    display.showScreen('ready');
   }
 });
 
@@ -109,23 +111,25 @@ video.events.on('video-assembled', function(){
 
 // when the user has entered their contact information
 display.events.on('contact-entered', function(phone){
-  if(phone === null){
-    display.debug('Ready');
-  } else {
-    display.debug('Uploading video...');
+  display.debug('Uploading video...');
 
-    // tell the client we're ready to record again
-    camera.startLiveStream();
+  // restart the camera stream
+  camera.startLiveStream();
 
-    // upload our content to the internet
-    video.process(phone).then(function(guid){
-      display.debug('Uploaded! Ready');
+  // upload our content to the internet
+  video.process(phone).then(function(guid){
+    display.debug('Uploaded! Ready');
 
-      // save the file locally
-      dirty.set(guid, guid);
-      display.newVideo(guid);
-    });
-  }
+    // save the file locally
+    dirty.set(guid, guid);
+    display.newVideo(guid);
+  });
+});
+
+// when the display is ready to go again
+display.events.on('ready', function(){
+  display.debug('Ready');
+  arduino.twinkleButton();
 });
 
 

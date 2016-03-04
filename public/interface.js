@@ -45,7 +45,7 @@ var attachVideoPlaybackEvents = function(){
 
 // deal with the countdown
 var startCountdown = function(){
-  $('.countdown-screen.prep').show();
+  $('.countdown-screen.prep').addClass('show');
 
   $.ajax({
     url : '/prompt',
@@ -60,25 +60,29 @@ var startCountdown = function(){
   });
 
   setTimeout(function(){
-    $('.countdown-screen.three').show();
+    $('.countdown-screen').removeClass('show');
+    $('.countdown-screen.three').addClass('show');
   }, 2500);
   setTimeout(function(){
-    $('.countdown-screen.two').show();
+    $('.countdown-screen').removeClass('show');
+    $('.countdown-screen.two').addClass('show');
   }, 3500);
   setTimeout(function(){
-    $('.countdown-screen.one').show();
+    $('.countdown-screen').removeClass('show');
+    $('.countdown-screen.one').addClass('show');
   }, 4500);
   setTimeout(function(){
-    $('.countdown-screen.prompt-a').show();
+    $('.countdown-screen').removeClass('show');
+    $('.countdown-screen.prompt-a').addClass('show');
     socket.emit('countdown-complete');
   }, 5500);
   setTimeout(function(){
-    $('.countdown-screen.prompt-b').show();
+    $('.countdown-screen').removeClass('show');
+    $('.countdown-screen.prompt-b').addClass('show');
   }, 7500);
-  // reset the countdown screen
   setTimeout(function(){
-    $('.countdown-screen').hide();
-  }, 30000);
+    $('.countdown-screen').removeClass('show');
+  }, 20000);
 };
 
 
@@ -88,17 +92,19 @@ var changeState = function(state){
   // stop all the vidyas and put them back to original position
   $('video').each(function(i, vidya){
     vidya.pause();
-    vidya.load();
   });
 
   // hide the current state, then show the next
-  $('.state').hide();
+  $('.state').removeClass('show');
   var selector = '.state.' + state;
-  $(selector).show();
+  $(selector).addClass('show');
 
   // do whatever special thing this state needs
   switch(state){
     case 'ready':
+      $('video').each(function(i, vidya){
+        vidya.pause();
+      });
       $('#video-ready')[0].play();
       break;
     case 'countdown':

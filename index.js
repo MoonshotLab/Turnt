@@ -104,7 +104,7 @@ editor.events.on('editing-complete', function(){
 });
 
 // when the video frames are assembled
-video.events.on('video-assembled', function(){
+video.events.on('assembled', function(){
   display.showScreen('review');
   display.debug('Waiting for Contact Information');
 });
@@ -116,11 +116,14 @@ display.events.on('contact-entered', function(phone){
   // upload our content to the internet
   video.process(phone).then(function(guid){
     display.debug('Uploaded!');
-
-    // save the file locally
-    dirty.set(guid, guid);
-    display.newVideo(guid);
   });
+});
+
+// when the video is ready for the showcase
+video.events.on('ready-to-showcase', function(guid){
+  display.debug('On the showcase');
+  dirty.set(guid, guid);
+  display.newVideo(guid);
 });
 
 // when the display is ready to go again

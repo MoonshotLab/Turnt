@@ -26,12 +26,6 @@ socket.on('new-video', function(data){
 });
 
 
-// listen for messages from the debugger
-socket.on('debug', function(text){
-  if(displayOptions.screen == 1) $('debug').text(text);
-});
-
-
 
 // populate the videos, but delay so nothing plays in sync
 setTimeout(function(){

@@ -31,3 +31,8 @@ var addToDom = function(guid){
 
   $('.turnts').append(turnt);
 };
+
+
+socket.on('debug', function(text){
+  if(displayOptions.screen == 1) $('#debug').text(text);
+});

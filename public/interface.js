@@ -21,7 +21,6 @@ var attachContactEntryEvents = function(){
         if(phoneNumber.length == 10) phoneNumber = '1' + phoneNumber;
         socket.emit('contact-entered', phoneNumber);
         changeState('gotit');
-        $('#phone-entry').val('');
       } else{
         $('#error-message').addClass('show');
         setTimeout(function(){
@@ -43,8 +42,10 @@ var attachVideoPlaybackEvents = function(){
     changeState('contact');
   });
   $('#video-gotit')[0].addEventListener('ended', function(){
-    socket.emit('ready');
-    changeState('ready');
+    setTimeout(function(){
+      socket.emit('ready');
+      changeState('ready');
+    }, 1000);
   });
 };
 
@@ -86,7 +87,7 @@ var startCountdown = function(){
   setTimeout(function(){
     $('.countdown-screen').removeClass('show');
     $('.countdown-screen.prompt-b').addClass('show');
-  }, 7500);
+  }, 9000);
   setTimeout(function(){
     $('.countdown-screen').removeClass('show');
   }, 20000);
@@ -112,6 +113,7 @@ var changeState = function(state){
   // do whatever special thing this state needs
   switch(state){
     case 'ready':
+      $('#phone-entry').val('');
       $('video').each(function(i, vidya){
         vidya.pause();
       });

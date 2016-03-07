@@ -8,9 +8,7 @@ $(function(){
 });
 
 
-var deleteTurnt = function(e, guid){
-  e.preventDefault();
-
+var deleteTurnt = function(guid){
   $.ajax({
     url : '/turnt/delete/' + guid,
     success : function(results){
@@ -21,10 +19,12 @@ var deleteTurnt = function(e, guid){
 
 
 var addToDom = function(guid){
-  var path = '/' + guid + '/' + guid;
+  var path  = '/' + guid + '/' + guid;
+  var id    = 'turnt-' + guid;
+
   var turnt = [
-    '<div class="turnt" id="turnt-' + guid + '" >',
-      '<a class="delete" href="#" onclick=deleteTurnt(event, "' + guid + '")>x</a>',
+    '<div class="turnt" id="' + id + '" >',
+      '<a class="delete" href="#">x</a>',
       '<video loop controls=true poster="' + path + '.jpg">',
         '<source src="' + path + '.mp4 "/>',
       '</video>',
@@ -32,6 +32,13 @@ var addToDom = function(guid){
   ].join('');
 
   $('.turnts').append(turnt);
+
+  setTimeout(function(){
+    $('#' + id).find('a').click(function(e){
+      e.preventDefault();
+      deleteTurnt(guid);
+    });
+  }, 100);
 };
 
 

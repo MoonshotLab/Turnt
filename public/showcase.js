@@ -55,7 +55,7 @@ function resetInterval(index){
 
 
 function playVideo(index, guid){
-  var interstitial = getRandomNumber(1, 2);
+  var interstitial = getRandomNumber(1, 7);
   $('video')[index].load();
   $('video')[index].src = '/interstitials/' + interstitial + '.mp4';
   $('video')[index].play();

@@ -95,9 +95,14 @@ turntable.events.on('input-update', function(data){
   editor.turntableUpdate(data);
 });
 
-// when the external editor is all done
-editor.events.on('editing-complete', function(){
+// when the external editor is done recording frames
+editor.events.on('done-recording', function(){
   display.showScreen('done');
+  display.debug('Done Recording');
+});
+
+// when the editor has written all the frames
+editor.events.on('done', function(){
   video.assemble();
   display.debug('Assembling Frames');
 });
@@ -132,7 +137,6 @@ display.events.on('ready', function(){
   camera.startLiveStream();
   arduino.twinkleButton();
 });
-
 
 
 // # ROUTES

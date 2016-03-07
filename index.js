@@ -66,7 +66,7 @@ arduino.events.on('start', function(){
     display.debug('Starting Session');
   } else if(display.getState() == 'contact'){
     display.showScreen('ready');
-  } else if(display.getState == 'tutorial'){
+  } else if(display.getState() == 'tutorial'){
     editor.launch();
   }
 });

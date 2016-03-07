@@ -14,7 +14,7 @@ var player = new jsmpeg(client, { canvas: canvas });
 // listen for the phone number entry
 var attachContactEntryEvents = function(){
   $('#phone-entry').keydown(function(e){
-    if(e.keyCode == 187){
+    if(e.keyCode == 110){
       e.preventDefault();
       $('#phone-entry').val( $('#phone-entry').val().slice(0,-1) );
     }

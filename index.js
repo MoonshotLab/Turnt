@@ -68,6 +68,7 @@ arduino.events.on('start', function(){
     display.showScreen('ready');
   } else if(display.getState() == 'tutorial'){
     arduino.stopTwinkling();
+    display.showScreen('done');
     editor.launch();
   }
 });
@@ -93,12 +94,6 @@ camera.events.on('done-recording', function(){
 // when the turntable detects some new input
 turntable.events.on('input-update', function(data){
   editor.turntableUpdate(data);
-});
-
-// when the external editor is done recording frames
-editor.events.on('done-recording', function(){
-  display.showScreen('done');
-  display.debug('Done Recording');
 });
 
 // when the editor has written all the frames

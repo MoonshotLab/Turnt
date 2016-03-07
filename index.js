@@ -129,6 +129,7 @@ video.events.on('ready-to-showcase', function(guid){
 // when the display is ready to go again
 display.events.on('ready', function(){
   display.debug('Ready');
+  video.cleanFrames();
   camera.startLiveStream();
   arduino.twinkleButton();
 });

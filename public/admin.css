@@ -2,15 +2,25 @@ body{
   background-color: black;
   padding: 0;
   margin: 0;
+  font-family: Helvetica;
+}
+
+h1, p{
+  color: white;
+  padding: 0 15px;
 }
 
 video{
   width: 100%;
+  position: relative;
+  z-index: 1;
 }
 
 .turnt{
-  margin-bottom: 20px;
+  margin-bottom: 40px;
+  padding-bottom: 20px;
   position: relative;
+  border-bottom: 1px dashed white;
 }
 
 .delete{

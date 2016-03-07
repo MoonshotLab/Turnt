@@ -19,12 +19,12 @@ var deleteTurnt = function(guid){
 
 
 var addToDom = function(guid){
-  var moviePath = '/' + guid + '/' + guid + '.mp4';
+  var path = '/' + guid + '/' + guid;
   var turnt = [
     '<div class="turnt" id="turnt-' + guid + '" >',
-      '<a class="delete" href="#" onclick=deleteTurnt("' + guid + '")>✖</a>',
-      '<video loop controls=true>',
-        '<source src="' + moviePath + ' "/>',
+      '<a class="delete" href="#" onclick=deleteTurnt("' + guid + '")>x</a>',
+      '<video loop controls=true poster="' + path + '.jpg">',
+        '<source src="' + path + '.mp4 "/>',
       '</video>',
     '<div>'
   ].join('');

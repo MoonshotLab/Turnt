@@ -74,7 +74,7 @@ function playVideo(index, guid){
 // play a video from the showcase or pass in one and get it played
 function fetchVideo(index){
   $.ajax({
-    url : '/showcase?shuffle=true',
+    url : '/turnts?shuffle=true',
     success : function(results){
 		if(results.length) playVideo(index, results[0]);
     }

@@ -139,6 +139,8 @@ display.events.on('ready', function(){
 var routes = require('./lib/routes');
 app.get('/', routes.interface);
 app.post('/stream-image', routes.streamImage);
-app.get('/showcase-view', routes.showcaseView);
 app.get('/showcase', routes.showcase);
+app.get('/turnts', routes.turnts);
 app.get('/prompt', routes.getPrompt);
+app.get('/admin', routes.admin);
+app.get('/turnt/delete/:id', routes.deleteTurnt);

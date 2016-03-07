@@ -13,6 +13,13 @@ var player = new jsmpeg(client, { canvas: canvas });
 
 // listen for the phone number entry
 var attachContactEntryEvents = function(){
+  $('#phone-entry').keydown(function(e){
+    if(e.keyCode == 187){
+      e.preventDefault();
+      $('#phone-entry').val( $('#phone-entry').val().slice(0,-1) );
+    }
+  });
+
   $('#phone-entry').keyup(function(e){
     var phoneNumber = $('#phone-entry').val();
     if(e.keyCode == 13){

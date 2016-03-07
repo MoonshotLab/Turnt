@@ -61,12 +61,16 @@ function resetInterval(index){
 
 
 function playVideo(index, guid){
-	$($('.video-player')[index]).addClass('hide');
+  var interstitial = getRandomNumber(1, 2);
+  $('video')[index].load();
+  $('video')[index].src = '/interstitials/' + interstitial + '.mp4';
+  $('video')[index].play();
+
 	setTimeout(function(){
+    $('video')[index].load();
 		$('video')[index].src = '/' + guid + '/' + guid + '.mp4';
 		$('video')[index].play();
-		$($('.video-player')[index]).removeClass('hide');
-	}, 500);
+	}, 2000);
 }
 
 

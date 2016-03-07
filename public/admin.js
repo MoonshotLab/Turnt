@@ -8,7 +8,9 @@ $(function(){
 });
 
 
-var deleteTurnt = function(guid){
+var deleteTurnt = function(e, guid){
+  e.preventDefault();
+
   $.ajax({
     url : '/turnt/delete/' + guid,
     success : function(results){
@@ -22,7 +24,7 @@ var addToDom = function(guid){
   var path = '/' + guid + '/' + guid;
   var turnt = [
     '<div class="turnt" id="turnt-' + guid + '" >',
-      '<a class="delete" href="#" onclick=deleteTurnt("' + guid + '")>x</a>',
+      '<a class="delete" href="#" onclick=deleteTurnt(event, "' + guid + '")>x</a>',
       '<video loop controls=true poster="' + path + '.jpg">',
         '<source src="' + path + '.mp4 "/>',
       '</video>',

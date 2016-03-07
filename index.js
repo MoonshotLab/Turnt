@@ -75,7 +75,7 @@ arduino.events.on('restart', softStart);
 // when the interface countdown is done
 display.events.on('countdown-complete', function(){
   arduino.lights(1);
-  camera.record();
+  setTimeout(camera.record, 1000);
   display.debug('Recording');
 });
 

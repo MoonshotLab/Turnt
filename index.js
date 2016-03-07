@@ -68,7 +68,9 @@ arduino.events.on('start', function(){
     display.showScreen('ready');
   } else if(display.getState() == 'tutorial'){
     arduino.stopTwinkling();
-    display.showScreen('done');
+    setTimeout(function(){
+      display.showScreen('done');
+    }, 5000);
     editor.launch();
   }
 });

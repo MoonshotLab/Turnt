@@ -1,6 +1,5 @@
 // # BROADCAST EVENTS
 // state-chage          |   the countdown has completed
-// tutorial-done        |   the tutorial has been shown
 // contact-entered      |   someone entered their contact info
 // ready                |   flow is complete
 
@@ -35,9 +34,6 @@ var attachContactEntryEvents = function(){
 
 // listen for end of video events
 var attachVideoPlaybackEvents = function(){
-  $('#video-tutorial')[0].addEventListener('ended', function(){
-    socket.emit('tutorial-done');
-  });
   $('#video-review')[0].addEventListener('ended', function(){
     changeState('contact');
   });

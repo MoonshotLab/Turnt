@@ -66,6 +66,8 @@ arduino.events.on('start', function(){
     display.debug('Starting Session');
   } else if(display.getState() == 'contact'){
     display.showScreen('ready');
+  } else if(display.getState == 'tutorial'){
+    editor.launch();
   }
 });
 
@@ -84,11 +86,6 @@ camera.events.on('done-recording', function(){
   arduino.lights(0);
   display.showScreen('tutorial');
   display.debug('Done Recording');
-});
-
-// when the tutorial video is done
-display.events.on('tutorial-done', function(){
-  editor.launch();
 });
 
 // when the turntable detects some new input

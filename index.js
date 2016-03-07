@@ -67,6 +67,7 @@ arduino.events.on('start', function(){
   } else if(display.getState() == 'contact'){
     display.showScreen('ready');
   } else if(display.getState == 'tutorial'){
+    arduino.stopTwinkling();
     editor.launch();
   }
 });
@@ -85,6 +86,7 @@ display.events.on('countdown-complete', function(){
 camera.events.on('done-recording', function(){
   arduino.lights(0);
   display.showScreen('tutorial');
+  arduino.twinkleButton();
   display.debug('Done Recording');
 });
 

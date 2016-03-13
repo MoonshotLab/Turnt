@@ -100,7 +100,7 @@ turntable.events.on('input-update', function(data){
 
 // when the editor has written all the frames
 editor.events.on('done', function(){
-  video.assemble();
+  setTimeout(video.assemble, 250);
   display.debug('Assembling Frames');
 });
 

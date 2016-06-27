@@ -3,7 +3,6 @@ The node application which powers the [turnt video booth](take5remixbooth.square
 
 ![booth-back](http://i.imgur.com/2jCYxKy.jpg)
 
-It:
 * Processes data from an [American Audio VMS2](http://www.americandj.eu/en/vms2.html) and makes it available via TCP interface
 * Consumes and captures a video feed from a usb camera
 * Controls the interface flow
@@ -27,6 +26,17 @@ I didn't want to deal with bower and didn't want to include dependencies in this
 * [jQuery](jquery.com)
 * [jsmpeg](https://github.com/phoboslab/jsmpeg)
 * [validator](https://github.com/chriso/validator.js)
+
+
+## Environment Variables
+* S3_KEY
+* S3_SECRET
+* S3_BUCKET
+* TURNT_EDITOR_INTERFACE_PATH - the location of the [openframeworks editor app](https://github.com/MoonshotLab/Turnt-EditorInterface)
+* TURNT_KEY - the key used to communicate with the [turnt server](https://github.com/moonshotlab/turnt-server)
+* PORT - the application's port
+* TCP_PORT - the port on which to send midi data
+* SERVER_URL - the remote server url (eg. remixvideobooth.com)
 
 
 ![](http://i.imgur.com/SeO2i3s.jpg)

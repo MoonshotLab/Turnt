@@ -8,3 +8,4 @@ public/vendor/*
 !public/vendor/.gitkeep
 turnt.db
 *.db
+*.ps1

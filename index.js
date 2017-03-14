@@ -113,9 +113,7 @@ video.events.on('assembled', function(){
   // set timeout to start process over if contact info is not received in a minute
   contactTimeout = setTimeout(function() {
     display.debug('Contact info timeout, starting over');
-    video.cleanFrames();
-    camera.startLiveStream();
-    arduino.twinkleButton();
+    display.showScreen('ready');
   }, 60 * 1000);
 });
 

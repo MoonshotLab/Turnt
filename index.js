@@ -48,6 +48,7 @@ var softStart = function(){
 	}, 2000);
 };
 
+var contactTimeout = null; // start over if contact info is not received in 60 seconds
 
 // give the interface a web socket to use
 display.setWebSocket(io);
@@ -108,10 +109,20 @@ editor.events.on('done', function(){
 video.events.on('assembled', function(){
   display.showScreen('review');
   display.debug('Waiting for Contact Information');
+
+  // set timeout to start process over if contact info is not received in a minute
+  contactTimeout = setTimeout(function() {
+    display.debug('Contact info timeout, starting over');
+    video.cleanFrames();
+    camera.startLiveStream();
+    arduino.twinkleButton();
+  }, 60 * 1000);
 });
 
 // when the user has entered their contact information
 display.events.on('contact-entered', function(phone){
+  clearTimeout(contactTimeout);
+
   display.debug('Uploading Video');
 
   // upload our content to the internet
